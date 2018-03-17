@@ -11,7 +11,7 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
  * 본 프로젝트의 구동을 위해서는 127.0.0.1의 6379에 redis 설치를 권장한다<br>
  * <a href="https://redis.io/download">Redis 공식 홈페이지</a>를 참고할 것<br>
  * 
- * @author Geunwoo Shim(gflhsin@gmail.com)
+ * @author Geunwoo Shim(geunwoo.j.shim@gmail.com)
  *
  */
 @SpringBootApplication

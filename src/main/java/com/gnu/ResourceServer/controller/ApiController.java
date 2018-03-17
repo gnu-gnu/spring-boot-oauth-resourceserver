@@ -1,6 +1,12 @@
 package com.gnu.ResourceServer.controller;
 
+import java.security.Principal;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 /**
@@ -14,10 +20,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class ApiController {
+	@Autowired
+	DefaultTokenServices tokenServices;
+	
 	@RequestMapping("/hello")
 	public String helloWorld(){
 		return "hello";
 	}
+	@RequestMapping("/revoke")
+	public boolean revokeToken(Principal principal){
+		OAuth2AccessToken token = tokenServices.getAccessToken((OAuth2Authentication) principal);
+		return tokenServices.revokeToken(token.getValue());
+	}	
+	
 	@PreAuthorize(("#oauth2.hasScope('read')"))
 	@RequestMapping("/read")
 	public String read(){
@@ -28,5 +43,4 @@ public class ApiController {
 	public String write(){
 		return "read";
 	}
-	
 }

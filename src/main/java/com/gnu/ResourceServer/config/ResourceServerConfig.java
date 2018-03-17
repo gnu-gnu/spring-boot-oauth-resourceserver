@@ -1,11 +1,14 @@
 package com.gnu.ResourceServer.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 /**
  * 보호된 자원이 존재하는 ResourceServer에 관한 설정 
@@ -47,5 +50,15 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 	@Override
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
 		resources.tokenStore(tokenStore);
+	}
+	
+	
+	@Bean(name="tokenServices")
+	@Primary
+	public DefaultTokenServices tokenServices() {
+	    DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
+	    defaultTokenServices.setTokenStore(tokenStore);
+	    defaultTokenServices.setSupportRefreshToken(true);
+	    return defaultTokenServices;
 	}
 }

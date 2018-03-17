@@ -13,7 +13,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 /**
  * 보호된 자원이 존재하는 ResourceServer에 관한 설정 
  * 
- * @author Geunwoo Shim(gflhsin@gmail.com)
+ * @author Geunwoo Shim(geunwoo.j.shim@gmail.com)
  *
  */
 @Configuration
@@ -46,13 +46,19 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 		resources.tokenServices(tokenServices);
 	}
 */	
-
+	/**
+	 * resource server 자체의 security에 관한 설정
+	 */
 	@Override
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
 		resources.tokenStore(tokenStore);
 	}
 	
-	
+	/**
+	 * 토큰의 생성, 파기, 확인 등에 관여하는 tokenServices 빈을 만든다.
+	 * 
+	 * @return 토큰 서비스 객체
+	 */
 	@Bean(name="tokenServices")
 	@Primary
 	public DefaultTokenServices tokenServices() {

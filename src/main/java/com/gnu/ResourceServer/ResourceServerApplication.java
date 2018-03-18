@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 /**
  * 
  * 본 프로젝트의 구동을 위해서는 127.0.0.1의 6379에 redis 설치를 권장한다<br>
@@ -15,7 +17,7 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
  *
  */
 @SpringBootApplication
-public class ResourceServerApplication {
+public class ResourceServerApplication extends WebMvcConfigurerAdapter{
 
 	public static void main(String[] args) {
 		SpringApplication.run(ResourceServerApplication.class, args);

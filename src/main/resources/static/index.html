@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-2.2.4.min.js"
+	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+	crossorigin="anonymous"></script>
+</head>
+<body>
+<h1>Hello?</h1>
+<button id="authorize">get request code</button>
+<script>
+function getAuthorize(){
+	var param = {
+		client_id :	'code',
+		response_type : 'code',
+		scope : '',
+		redirect_uri : 'http://localhost:7077/resources/open/callback',
+		state : '1234567',
+	};
+	$.ajax(
+			{
+				method : 'post',
+				url : '/resources/open/authorize',
+				data : param,
+				crossDomain : true,
+				success : function(res){
+					console.log(res);
+				},
+				error : function(res){
+					console.log(res);
+				}
+			}
+	);
+}
+
+$(document).ready(function(){
+	$("#authorize").on("click", function(){
+		getAuthorize();	
+	});
+});
+</script>
+</body>
+</head>
+</html>

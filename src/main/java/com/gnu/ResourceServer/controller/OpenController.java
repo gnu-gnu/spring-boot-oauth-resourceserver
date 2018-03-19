@@ -10,10 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.json.GsonJsonParser;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -79,7 +77,6 @@ public class OpenController {
 		// TODO client_id, secret 은 사용자의 고유값으로 대치하도록 한다. 하드코딩된 값들은 모두 수정할 것
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("client_id", "code");
-		paramMap.put("client_secret", "secret");
 		paramMap.put("redirect_uri", "http://localhost:7077/resources/open/callback");
 		paramMap.put("grant_type", "authorization_code");
 		paramMap.put("state", "19850827");
@@ -87,7 +84,7 @@ public class OpenController {
 
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-		httpHeaders.set("Authorization", "Basic "+Base64.getEncoder().encodeToString("code:secret".getBytes())); // code:secret은 Authorization_code 교환을 위한 basic auth, 추후에 이 부분은 사용자별 인증으로 대체한다.
+		httpHeaders.set("Authorization", "Basic "+Base64.getEncoder().encodeToString("code:".getBytes())); // code:secret은 Authorization_code 교환을 위한 basic auth, 추후에 이 부분은 사용자별 인증으로 대체한다.
 		httpHeaders.set("Cache-control", "no-cache");
 		RestTemplate rest = new RestTemplate();
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();

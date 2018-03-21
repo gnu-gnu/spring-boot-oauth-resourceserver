@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api")
+@PreAuthorize("isAuthenticated()")
 public class ApiController {
 	@Autowired
 	DefaultTokenServices tokenServices;

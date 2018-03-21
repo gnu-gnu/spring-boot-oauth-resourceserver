@@ -34,18 +34,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 		.anyRequest().authenticated();
 	}
 	
-/*	
-  	@Override
-	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-		// redis tokenStore 기반이 아닌, AuthServer에서 token을 validation할 경우, Auth Server의 /check_token을 RemoteTokenService로 활용한다
-		// 이 때 AuthServer에서는 security.checkTokenAccess의 기본값이 denyAll() 이므로 이 부분이 적절하게 조절되어야 한다. 
-		RemoteTokenServices tokenServices = new RemoteTokenServices();
-		tokenServices.setCheckTokenEndpointUrl("http://localhost:9099/apps/oauth/check_token");
-		tokenServices.setClientId("resourceServer");
-		tokenServices.setClientSecret("resourceSecret");
-		resources.tokenServices(tokenServices);
-	}
-*/	
 	/**
 	 * resource server 자체의 security에 관한 설정
 	 */
